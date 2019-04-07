@@ -1,4 +1,5 @@
 import json
+from settings import SECTOR_COLORS
 
 def decdeg2dms(dd):
    is_positive = dd >= 0
@@ -15,6 +16,9 @@ def geoJSON_to_sct(filepath):
     output = list()
 
     for item in data["features"]:
+        for color in SECTOR_COLORS:
+            if color in item["properties"]["name"]:
+                output.append("{0}".format(SECTOR_COLORS[color]))
         output.append("; - {0}".format(item["properties"]["name"]))
         for geo in item["geometry"]["coordinates"]:
             parse = [x for x in geo]
