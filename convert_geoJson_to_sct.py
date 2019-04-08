@@ -16,10 +16,12 @@ def geoJSON_to_sct(filepath):
     def convert_LON(c):
         if c < 0:
             degrees, minutes, seconds = decdeg2dms(c)
+            if degrees < 0:
+                degrees = degrees * -1
             if degrees < 10:
-                return "W00{0:.0f}.{1:.0f}.{2:.3f}".format((degrees*-1), minutes, seconds)
+                return "W00{0:.0f}.{1:.0f}.{2:.3f}".format(degrees, minutes, seconds)
             else:
-                return "W0{0:.0f}.{1:.0f}.{2:.3f}".format((degrees*-1), minutes, seconds)
+                return "W0{0:.0f}.{1:.0f}.{2:.3f}".format(degrees, minutes, seconds)
         else:
             degrees, minutes, seconds = decdeg2dms(c)
             return "E{0:.0f}.{1:.0f}.{2:.3f}".format(degrees, minutes, seconds)
