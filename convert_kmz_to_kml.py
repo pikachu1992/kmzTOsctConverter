@@ -2,7 +2,7 @@ import zipfile
 from xml.dom import minidom
 
 def kmz_to_kml(fname):
-    zf = zipfile.ZipFile(fname,'r')
+    zf = zipfile.ZipFile('uploads/' + fname,'r')
     for fn in zf.namelist():
         if fn.endswith('.kml'):
             content = zf.read(fn)
