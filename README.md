@@ -8,7 +8,7 @@ Flask App to converter .kmz files to Euroscope Sector Files (.sct)
     Background = "..._Background"
     Runway = "..._Runway"
     Marking = "Marking..."
-    Marking_ = "Marking_..."
+    ApronMark = "ApronMark..."
     Taxiway_ = "Taxiway_..."
     stop  = ".._stop"
     Stand_ = "Stand_..."
