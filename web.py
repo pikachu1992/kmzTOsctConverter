@@ -14,10 +14,6 @@ app = Flask(__name__, template_folder="web")
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['JSON_FOLDER'] = JSON_FOLDER
 
-@app.route("/")
-def hello():
-    return "Hello World!"
-
 def convert(file):
     fname = "{}".format(file.split('.')[0])
     kmz_to_kml(file)
@@ -36,7 +32,7 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route('/upload', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
         # check if the post request has the file part
