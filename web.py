@@ -47,7 +47,7 @@ def upload_file():
         # check if the post request has the file part
         if 'hh' not in request.files:
             flash('No file part')
-            return json.loads(json.dumps("File extension not allowed. Send only .kmz files"))
+            return json.dumps(json.loads(json.dumps("File extension not allowed. Send only .kmz files")))
             return json.dumps("No have file insert one file first")
         file = request.files['hh']
         # if user does not select file, browser also
@@ -60,7 +60,7 @@ def upload_file():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return convert(file.filename)
         else:
-            return json.loads(json.dumps("File extension not allowed. Send only .kmz files"))
+            return json.dumps(json.loads(json.dumps("File extension not allowed. Send only .kmz files")))
 
 
 
