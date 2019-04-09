@@ -45,16 +45,16 @@ def upload_file():
 
     if request.method == 'POST':
         # check if the post request has the file part
-        if 'hh' not in request.files:
+        if 'file' not in request.files:
             flash('No file part')
             
             return json.dumps(["No have file insert one file first"])
-        file = request.files['hh']
+        file = request.files['file']
         # if user does not select file, browser also
         # submit an empty part without filename
         if file.filename == '':
             flash('No selected file')
-            return redirect(request.url)
+            return json.dumps(["File extension not allowed. Send only .kmz files"])
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
