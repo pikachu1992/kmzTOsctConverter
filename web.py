@@ -32,7 +32,7 @@ def return_files_tut(file):
             return a  
 		#return json.dumps(send_file(file, attachment_filename=file))
     except Exception as e:
-        return str(e)
+        return json.dumps(str(e))
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -57,9 +57,9 @@ def upload_file():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return convert(file.filename)
         else:
-            return "File extension not allowed. Send only .kmz files"
+            return json.dumps("File extension not allowed. Send only .kmz files")
 
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5010)
+    app.run(host="0.0.0.0", port=5006)
