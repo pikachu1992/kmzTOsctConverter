@@ -6,12 +6,14 @@ from convert_kmz_to_kml import kmz_to_kml
 from convert_geoJson_to_sct import geoJSON_to_sct
 import kml2geojson as kg
 import json
+from flask_cors import CORS
 
 UPLOAD_FOLDER = 'uploads/'
 JSON_FOLDER = 'json_files/'
 ALLOWED_EXTENSIONS = set(['kmz',])
 
 app = Flask(__name__, template_folder="web")
+CORS(app)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['JSON_FOLDER'] = JSON_FOLDER
 app.secret_key = "super secret key"
