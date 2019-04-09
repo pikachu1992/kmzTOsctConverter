@@ -19,13 +19,16 @@ app.config['JSON_FOLDER'] = JSON_FOLDER
 app.secret_key = "super secret key"
 
 def convert(file):
-    fname = "{}".format(file.split('.')[0])
-    kmz_to_kml(file)
-    kg.convert((app.config['UPLOAD_FOLDER'] + fname + ".kml"), "json_files")
-    geoJSON_to_sct((app.config['JSON_FOLDER'] + fname + ".geojson"))
+    try:
+        fname = "{}".format(file.split('.')[0])
+        kmz_to_kml(file)
+        kg.convert((app.config['UPLOAD_FOLDER'] + fname + ".kml"), "json_files")
+        geoJSON_to_sct((app.config['JSON_FOLDER'] + fname + ".geojson"))
 
-    return return_files_tut("converted/" + fname + ".sct")
-
+        return return_files_tut("converted/" + fname + ".sct")
+    except:
+        return json.dumps(["This file have errors"])
+        
 def return_files_tut(file):
     try:
         with open(file, 'r') as f:
