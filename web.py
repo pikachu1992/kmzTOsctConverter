@@ -47,7 +47,7 @@ def upload_file():
         # check if the post request has the file part
         if 'hh' not in request.files:
             flash('No file part')
-            return redirect(request.url)
+            return json.dumps("No have file insert one file first")
         file = request.files['hh']
         # if user does not select file, browser also
         # submit an empty part without filename
