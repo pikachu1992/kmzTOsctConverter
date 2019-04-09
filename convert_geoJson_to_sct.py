@@ -36,9 +36,9 @@ def geoJSON_to_sct(filepath):
 
     def convert_regions():
         output = list()
-        output.append("------------------------------")
+        output.append("--------------------------------------")
         output.append("------------REGIONS-----------")
-        output.append("------------------------------")
+        output.append("--------------------------------------")
         for item in data["features"]:
             for color in SECTOR_COLORS:
                 if color in item["properties"]["name"] and color != "Taxiway_" and color != "Stand_":
@@ -64,9 +64,9 @@ def geoJSON_to_sct(filepath):
     def convert_taxiways_and_stands():
         output = list()
         
-        output.append("------------------------------")
+        output.append("--------------------------------------")
         output.append("--------TAXYWAYS&STANDS-------")
-        output.append("------------------------------")
+        output.append("--------------------------------------")
         for item in data["features"]:
             
             #if (item["properties"]["name"] == "Taxiway_W_B"):

@@ -1,11 +1,10 @@
 import os
-from flask import Flask, flash, request, redirect, url_for, session
+from flask import Flask, flash, request, redirect, url_for
 from werkzeug.utils import secure_filename
-from flask import send_file, render_template, request, jsonify
+from flask import send_file, render_template
 from convert_kmz_to_kml import kmz_to_kml
 from convert_geoJson_to_sct import geoJSON_to_sct
 import kml2geojson as kg
-import json
 
 UPLOAD_FOLDER = 'uploads/'
 JSON_FOLDER = 'json_files/'
@@ -14,7 +13,6 @@ ALLOWED_EXTENSIONS = set(['kmz',])
 app = Flask(__name__, template_folder="web")
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['JSON_FOLDER'] = JSON_FOLDER
-app.secret_key = "super secret key"
 
 def convert(file):
     fname = "{}".format(file.split('.')[0])
@@ -25,28 +23,23 @@ def convert(file):
     return return_files_tut("converted/" + fname + ".sct")
 
 def return_files_tut(file):
-    try:
-        with open(file, 'r') as f:
-            to_split = f.read().split('\n')
-            a = json.dumps(to_split)
-            return a  
-		#return json.dumps(send_file(file, attachment_filename=file))
-    except Exception as e:
-        return str(e)
+	try:     
+		return send_file(file, attachment_filename=file)
+	except Exception as e:
+		return str(e)
 
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route('/', methods=['POST'])
+@app.route('/', methods=['GET', 'POST'])
 def upload_file():
-
     if request.method == 'POST':
         # check if the post request has the file part
-        if 'hh' not in request.files:
+        if 'file' not in request.files:
             flash('No file part')
             return redirect(request.url)
-        file = request.files['hh']
+        file = request.files['file']
         # if user does not select file, browser also
         # submit an empty part without filename
         if file.filename == '':
@@ -59,7 +52,7 @@ def upload_file():
         else:
             return "File extension not allowed. Send only .kmz files"
 
-
+    return render_template('kmztosct_converter.html')
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5010)
+    app.run(host="0.0.0.0")
